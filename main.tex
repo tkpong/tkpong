@@ -1,0 +1,209 @@
+\documentclass{siamltex}   % Use [final] when ready.
+
+\usepackage{siampaper}
+
+% For debugging.
+%\usepackage{showframe}
+
+%% The lineno packages adds line numbers. Start line numbering with
+%% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
+%% for the whole article with \linenumbers after \end{frontmatter}.
+%% \usepackage{lineno}
+
+% Meta-information for the PDF file generated.
+\pdfinfo{/Author (Michael P. Friedlander)
+         /Title (Insert Title Here)
+         /Keywords (keyword1, keyword2, keyword3)}
+
+\title{
+  Gauges and Conic Optimization
+}
+\markboth{M. P. FRIEDLANDER, I. MACEDO, and T. K. PONG}
+         {GAUGES AND CONIC OPTIMIZATION}
+\author{
+  Michael P. Friedlander%
+  \thanks{%
+    Department of Computer Science,
+    University of British Columbia,
+    Vancouver, BC, Canada.
+    E-mail: \mailto{mpf@cs.ubc.ca}.
+    Research partially supported by an NSERC Discovery Grant.
+  }
+  \and
+  Ives J. A. Mac\^edo%
+  \thanks{%
+    Department of Computer Science,
+    University of British Columbia,
+    Vancouver, BC, Canada.
+    E-mail: \mailto{ijamj@cs.ubc.ca}.
+    Research partially supported by an NSERC Discovery Grant.
+  }
+  \and
+  Ting Kei Pong%
+  \thanks{%
+    Department of Computer Science,
+    University of British Columbia,
+    Vancouver, BC, Canada.
+    E-mail: \mailto{tkpong@cs.ubc.ca}.
+    Research partially supported by an NSERC Discovery Grant.
+  }
+}
+\date{\today}
+
+\begin{document}
+
+  \maketitle
+
+  \thispagestyle{plain}
+  \pagestyle{myheadings}
+
+  \begin{abstract}
+    Insert abstract here.
+  \end{abstract}
+  \begin{keywords}
+    gauges, duality, convex optimization, inverse problems
+  \end{keywords}
+  \begin{AMS}
+    90C15, 90C25
+  \end{AMS}
+
+  \tableofcontents
+  \listoftodos\relax
+
+
+  \section{Introduction}
+
+  Regularization is a common technique for introducing a desired
+  structure into the solution of an optimization problem. For many
+  modern applications in machine learning and signal processing, these
+  regularization functions are often nonsmooth and highly
+  structured. The aim of this paper is to describe a class of
+  optimization problems that neatly captures a wide variety of
+  regularization formulations.
+
+  All of the problems that we consider can be expressed as
+  \begin{equation}
+    \label{eq:1}
+    \minimize{x} \quad \kappa(x) \textt{subject to} x\in\Cscr,
+  \end{equation}
+  where $\Cscr\subseteq\R^{n}$ is a convex set, and
+  $\kappa:\R^{n}\to\R\cup\{+\infty\}$ is a \emph{gauge} function,
+  i.e., a nonnegative, positively homogeneous convex function). This
+  class of problems admits a different kind of duality relationship
+  based on the gauge structure of its objective.
+
+  [It's at this point that we might want to simply introduce the
+  primal-dual pair of gauge programs, and just mention that we'll
+  discuss the relationship further.]
+
+  Some examples follow.
+  \begin{example}[Norms and minimum-length solutions]
+    Norms. Introduce unit ball.
+  \end{example}
+
+  \begin{example}[Atomic norms and sparse optimization]
+    See Recht et al.  their ``atomic'' norm definition
+    \[
+    \norm{x}_{\Ascr} := \inf\{ \lambda\ge0 \mid x\in\lambda\conv(\Ascr)\}
+    \]
+    is a gauge, where $\Ascr$ is a set of ``atoms'' \cite{Chan:2012}.
+  \end{example}
+
+  \begin{example}[Submodular functions]
+    The Lovasz extension of a submodular function is a gauge
+  \end{example}
+
+  \begin{example}[Nonnegative conic programming]
+    Let $\Kscr$ be a closed convex cone, and let $\Kscr^{*}$ denote
+    its dual. Then the conic optimization problem
+    \begin{equation}
+      \label{eq:2}
+      \minimize{x} \quad \innerp{c}{x} \quad\st\quad Ax = b,\ x\in\Kscr
+    \end{equation}
+    always has a nonnegative objective, and is a gauge optimization
+    problem. This is a generalization of the nonnegative LP that
+    discussed by Freund.
+  \end{example}
+
+  \section{Background}
+
+  \subsection{Gauge functions}
+  \label{sec:gauges}
+
+  \begin{itemize}
+  \item Alternative def's of gauge functions
+  \item Conjugates, relationship to support functions,  subgradients
+  \end{itemize}
+
+  \subsection{Polarity operations}
+  \label{sec:polarity-operations}
+
+  \section{Polar and anti-polar calculus}
+  \label{sec:polar-anti-polar}
+
+  \begin{itemize}
+  \item Background on polar calculus (eg, Rockafellar)
+  \item Derive the anti-polar versions
+  \end{itemize}
+  
+  \section{Gauge duality}
+  \label{sec:gauge-duality}
+
+  \subsection{Weak duality}
+  \label{sec:weak-duality}
+
+  \subsection{Strong duality}
+  \label{sec:strong-duality}
+  
+  \begin{itemize}
+  \item Freund’s “projection” CQ
+  \item Version of strong duality sans ray-like property
+    \begin{itemize}
+    \item Show that the ray-like property is redundant
+    \item ray-like needed only for bi-dual
+    \item ray-like extension by bi-dual
+    \end{itemize}
+  \end{itemize}
+
+  \subsection{Examples}
+  \begin{itemize}
+  \item nonnegative CP requirements for strong duality: what
+    conditions on the NNCP satisfy the strong-duality conditions
+    above.
+    \begin{itemize}
+    \item Ives assumed $c \in \int(\Kscr)$. Relax?
+    \item contrast these conditions to those required for conic
+      programming for Lagrange duality
+    \end{itemize}
+  \item questions:
+    \begin{itemize}
+    \item example where strong GD holds, but strong LD does not
+    \item what is the difference between strengths of GD and LD
+      gaps? (See Lemma 3 of Freund)
+    \end{itemize}
+  \end{itemize}
+
+  \section{Sensitivity analysis}
+  \begin{itemize}
+  \item concept of gauge multipliers?
+  \item subdifferential of the gauge value function?
+  \item perturbations in $b$
+  \end{itemize}
+
+  \section{Algorithms}
+  \label{sec:algorithms}
+
+  \begin{itemize}
+  \item A generic algorithm for gauge duals?
+  \end{itemize}
+  
+
+  
+
+  \section{Conclusion}
+
+
+  \bibliographystyle{plainnat}
+  \bibliography{master}
+
+\end{document}
