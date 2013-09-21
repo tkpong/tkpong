@@ -1,6 +1,8 @@
 \documentclass{siamltex}   % Use [final] when ready.
 
 \usepackage{siampaper}
+\usepackage{braket}
+\usepackage{enumerate} % added by TK
 
 % For debugging.
 %\usepackage{showframe}
@@ -96,6 +98,8 @@
   primal-dual pair of gauge programs, and just mention that we'll
   discuss the relationship further.]
 
+  \subsection{Examples}
+
   Some examples follow.
   \begin{example}[Norms and minimum-length solutions]
     Norms. Introduce unit ball.
@@ -110,7 +114,22 @@
   \end{example}
 
   \begin{example}[Submodular functions]
-    The Lovasz extension of a submodular function is a gauge
+    Let $N=\Set{1,\ldots,n}$, and consider the set-function
+    $f:2^{N}\to\R$, where $f(\emptyset)=0$. The function $f$ is
+    submodular if
+    \[
+    f(A) + f(B) \ge f(A\cup B) + f(A\cap B)
+    \]
+    for all $A,B\subset V$. The \cite{Lovasz:1983}
+    extension of $f$ can be expressed as
+    \[
+    \hat f(w) = \sup_{x\in P_{f}}\innerp{w}{x},
+    \]
+    where $B_{f}=\Set{x\in\R^{N}\mid x(N) = f(N), \text{\ and \
+      }x(S)\le f(S),\ \forall S\subseteq N}$, with $x(S)=\sum_{i\in
+      S}x_{i}$ is the base polyhedron of $f$. Note that $\hat f$ is
+    the support function of the convex set $B_{f}$, and is therefore a
+    gauge defined by $B^{\circ}_{f}$.
   \end{example}
 
   \begin{example}[Nonnegative conic programming]
@@ -141,11 +160,163 @@
   \section{Polar and anti-polar calculus}
   \label{sec:polar-anti-polar}
 
-  \begin{itemize}
-  \item Background on polar calculus (eg, Rockafellar)
-  \item Derive the anti-polar versions
+  \begin{itemize}{\color{red}
+  \item Background on polar calculus (eg, Rockafellar)}{\color{green}
+  \item Derive the anti-polar versions}
   \end{itemize}
+
+  In this section, we derive formulae for anti-polar sets of some simple sets.
+  The following formula follows directly from the definition of polar functions.
+  \begin{proposition}\label{sec3:prop2}
+    Let $\Cscr = \{x:\; \rho(b - x)\le \sigma\}$ for some proper closed convex gauge function $\rho$, $0 < \sigma<\rho(b)$. Then
+    \[
+    \Cscr' = \{y:\; b^Ty - \sigma\rho^\circ(y)\ge 1\}.
+    \]
+  \end{proposition}
+  \begin{proof}
+    Notice that $y\in \Cscr'$ is the same as $y^Tx \ge 1$ for all $x\in \Cscr$. This is further equivalent to
+    \begin{equation*}
+      \begin{split}
+        &\ y^T(x-b)\ge 1 - b^Ty,\ \ \ \mbox{for all} \ x \ {\rm s.t.}\ \rho(b - x)\le \sigma,\\
+        \Leftrightarrow &\ y^T(b - x)\le b^Ty - 1,\ \ \ \mbox{for all} \ x \ {\rm s.t.}\ \rho(b-x)\le \sigma,\\
+        \Leftrightarrow &\ \sigma\rho^\circ(y)\le b^Ty - 1,\\
+      \end{split}
+    \end{equation*}
+    where the last equivalence follows from the definition of polar function. This completes the proof.
+  \end{proof}
+
+  Proposition~\ref{sec3:prop2} is very general since any closed convex set ${\cal D}$ containing the origin can be represented in the form of $\{x:\; \rho(x)\le 1\}$,
+  with $\rho(x)=\inf\{\lambda> 0:\; \lambda^{-1}x\in {\cal D}\}$ being the Minkowski functional of ${\cal D}$. For example, we have the following simple corollary.
+  \begin{corollary}\label{sec3:prop2immedcor}
+    Let $\Cscr = \{x:\; x\in b + K\}$ for some closed convex cone $K$ and a vector $b\notin -K$. Then
+    \[
+    \Cscr' = \{y\in K^*:\; b^Ty \ge 1\}.
+    \]
+  \end{corollary}
+  \begin{proof}
+    Apply Proposition~\ref{sec3:prop2} with $\rho(x) = \delta_{-K}(x)$, the indicator function of the cone $-K$, and notice that
+    in this case, $\rho^\circ(y) = \delta_{K^*}(y)$.
+  \end{proof}
+
+  However, in general, it may not always be easy to
+  obtain an explicit formula for the Minkowski functional of a given closed convex set ${\cal D}$. Hence, we consider some antipolar calculus,
+  which allows us to express the antipolar of a more complicated set in terms of the antipolars of its constituents.
+  We start by looking at the antipolar of the image of $\Cscr$ under a linear map.
+  \begin{proposition}\label{sec3:antipolarAC}
+    Let $A$ be a linear map. Then
+    \[
+    (A\Cscr)' = (A^T)^{-1}\Cscr'.
+    \]
+    Furthermore, if ${\rm cl}(A\Cscr)$ does not contain the origin, then both sets above are nonempty.
+  \end{proposition}
+  \begin{proof}
+    Note that $y\in (A\Cscr)'$ is equivalent to
+    \begin{equation*}
+      \begin{split}
+        &\ y^T(Ac) \ge 1,\ \ \mbox{for all $c\in \Cscr$},\\
+        \Leftrightarrow &\ (A^Ty)^Tc \ge 1,\ \ \mbox{for all $c\in \Cscr$}.
+      \end{split}
+    \end{equation*}
+    The last relation is equivalent to $A^Ty \in \Cscr'$. Hence, we have $(A\Cscr)' = (A^T)^{-1}\Cscr'$.
+    Furthermore, the assumption ${\rm cl}(A\Cscr)$ does not contain the origin implies that $(A\Cscr)'$ is nonempty. This completes the proof.
+  \end{proof}
+
+  As a corollary, we get the following result concerning the preimage of $\Cscr$.
+  \begin{corollary}\label{sec3:cor1}
+    Let $A$ be a linear map so that $A^{-1}\Cscr$ is nonempty. Then
+    \[
+    (A^{-1}\Cscr)' = {\rm cl}(A^T\Cscr'),
+    \]
+    and both sets are nonempty.
+  \end{corollary}
+  \begin{proof}
+    First of all, it is clear that ${\rm cl}(A^T\Cscr')$ is nonempty. Moreover, since $\Cscr$ does not contain the origin, $A^{-1}\Cscr$
+    is also a closed convex set that does not contain the origin. Hence, $(A^{-1}\Cscr)'$ is also nonempty.
+
+    We next show that ${\rm cl}(A^T\Cscr')$ does not contain the origin. Suppose that $y\in A^T\Cscr'$ so that
+    $y = A^Tu$ for some $u\in \Cscr'$. Then for any $x\in A^{-1}\Cscr$, we have
+    $Ax\in \Cscr$ and thus
+    \[
+    y^Tx = u^TAx \ge 1,
+    \]
+    showing that $y\in (A^{-1}\Cscr)'$. Thus, we have $A^T\Cscr'\subseteq (A^{-1}\Cscr)'$ and consequently ${\rm cl}(A^T\Cscr')\subseteq (A^{-1}\Cscr)'$.
+    Since the set $(A^{-1}\Cscr)'$ does not contain the origin, it follows that ${\rm cl}(A^T\Cscr')$ does not contain the origin.
+
+    We now apply Proposition~\ref{sec3:antipolarAC} with $A^T$ in place of $A$ and $\Cscr'$ in place of $\Cscr$ to obtain that
+    \begin{equation*}
+      (A^T\Cscr')' = A^{-1}\Cscr''.
+    \end{equation*}
+    Taking antipolar on both sides of the above relation, we arrive at
+    \begin{equation}\label{sec3:2sidepolar}
+    (A^T\Cscr')'' = (A^{-1}\Cscr'')'.
+    \end{equation}
+    Since $\Cscr'$ is ray-like,
+    it follows that ${\rm cl}(A^T\Cscr')$ is also ray-like. Since ${\rm cl}(A^T\Cscr')$ does not contain the origin, we conclude that
+    $(A^T\Cscr')'' = {\rm cl}(A^T\Cscr')$. Moreover, recall that $\Cscr''$ is the set ${\rm cl}\{\lambda x:\; \lambda\ge 1, x\in C\}$;
+    see, for example, \cite[Page~176]{McLinden:1978}. Hence,
+    \[
+    (A^{-1}\Cscr'')' = \left(\bigcup_{\lambda\ge 1}\lambda A^{-1}\Cscr\right)' = (A^{-1}\Cscr)',
+    \]
+    where the second equality can be verified directly from definition. The conclusion now follows from the above discussion and \eqref{sec3:2sidepolar}.
+  \end{proof}
   
+  We have the following further corollary.
+  \begin{corollary}\label{sec3:cor2}
+    Let $A$ be a linear map so that $A^{-1}\Cscr$ is nonempty. Suppose either
+    \begin{enumerate}[{\rm (i)}]
+      \item $\Cscr$ is polyhedral; or
+      \item ${\rm ri}(\Cscr)\cap {\rm Range}(A)\neq\emptyset$;
+    \end{enumerate}
+    then $(A^{-1}\Cscr)'$ is nonempty and
+    \begin{equation}\label{sec3:antipolarinvAC}
+    (A^{-1}\Cscr)' = A^T\Cscr'.
+    \end{equation}
+  \end{corollary}
+  \begin{proof}
+    We will show that $A^T\Cscr'$ is closed under the assumption of this corollary.
+    Then the conclusion follows immediately from Corollary~\ref{sec3:cor1}.
+
+    Recall from Abrams theorem (see, for example, \cite[Lemma~3.1]{Berman:1973}) that $A^T\Cscr'$ is closed if
+    and only if $\Cscr' + \ker(A^T)$ is closed. We will thus establish the closedness of the latter set. 
+    
+    Suppose that $\Cscr$ is a polyhedral. Then it is routine to show that $\Cscr'$ is also a polyhedral and thus 
+    $\Cscr' + \ker(A^T)$ is closed. Hence, the conclusion of the corollary holds under this assumption.
+    
+    Finally, suppose that ${\rm ri}(\Cscr)\cap {\rm Range}(A)\neq\emptyset$. 
+    From \cite[Theorem~2.2.1]{AuT03} and the bipolar theorem, we have
+    ${\rm cl}({\rm dom}(\sigma_{\Cscr'})) = ((\Cscr')_\infty)^*$, where $(\Cscr')_\infty$ is the recession cone of $\Cscr'$, which 
+    turns out to be just ${\rm cl}({\rm cone}(\Cscr'))$. From this, Lemma~\ref{sec4:lem1} and the bipolar theorem, we see further that
+    \[
+    {\rm cl}({\rm dom}(\sigma_{\Cscr'})) = [{\rm cl}({\rm cone}(\Cscr'))]^* = [\Cscr^*]^* = {\rm cl}({\rm cone}(\Cscr)),
+    \]
+    and hence ${\rm ri}({\rm dom}(\sigma_{\Cscr'})) = {\rm ri}({\rm cone}(\Cscr))$, thanks to \cite[Theorem~6.3]{Roc70}. Furthermore, the assumption that
+    ${\rm ri}(\Cscr)\cap {\rm Range}(A)\neq \emptyset$ is equivalent to ${\rm ri}({\rm cone}(\Cscr))\cap {\rm Range}(A)\neq \emptyset$, since
+    ${\rm ri}({\rm cone}(\Cscr)) = \bigcup_{\lambda > 0}\lambda{\rm ri}(\Cscr)$; see \cite[Page~50]{Roc70}. Thus, the assumption
+    ${\rm ri}(\Cscr)\cap {\rm Range}(A)\neq\emptyset$ together with \cite[Theorem~23.8]{Roc70} imply that 
+    \begin{equation}\label{sec3:sum1}
+      \Cscr' + \ker(A^T) = \partial \sigma_{\Cscr'}(0) + N_{{\rm Range}(A)}(0) = \partial(\sigma_{\Cscr'} + \delta_{{\rm Range}(A)})(0).
+    \end{equation}
+    In particular, $\Cscr' + \ker(A^T)$ is closed.
+  \end{proof}
+
+  We have the following immediate corollaries
+  by combining Corollary~\ref{sec3:cor2} with Proposition~\ref{sec3:prop2} and Corollary~\ref{sec3:prop2immedcor}.
+  {\color{red} Can further tweak the $A$...}
+  \begin{corollary}
+    Suppose that $\Cscr = \{x :\; \rho(b-Ax)\le \sigma\}$ for some proper closed convex gauge function $\rho$,
+    a surjective linear map $A$ and $0 < \sigma < \rho(b)$.
+    Then
+    \[
+    \Cscr' = \{A^Ty:\; b^Ty - \sigma\rho^\circ(y)\ge 1\}.
+    \]
+  \end{corollary}
+  \begin{corollary}
+    Suppose that $\Cscr = \{x:\; Ax - b\in K\}$ for some closed convex cone $K$, $-b\notin K$ and a surjective linear map $A$. Then
+    \[
+    \Cscr' = \{A^Ty\in K^*:\; b^Ty \ge 1\}.
+    \]
+  \end{corollary}
+
   \section{Gauge duality}
   \label{sec:gauge-duality}
 
@@ -154,16 +325,288 @@
 
   \subsection{Strong duality}
   \label{sec:strong-duality}
-  
-  \begin{itemize}
-  \item Freund’s “projection” CQ
+
+  \begin{itemize}{\color{red}
+  \item Freunds projection CQ: if this is ``new", it will be a new condition for Fenchel duality.}
+  {\color{green}
   \item Version of strong duality sans ray-like property
     \begin{itemize}
     \item Show that the ray-like property is redundant
     \item ray-like needed only for bi-dual
     \item ray-like extension by bi-dual
-    \end{itemize}
+    \end{itemize}}
   \end{itemize}
+
+In this section, we re-derive the gauge duality theory developed in \cite{freund:1987} from the
+Fenchel duality theory and relax the ray-likeness assumption on $\Cscr$.
+Unless otherwise specified, the set $\Cscr$ is a nonempty closed convex set not containing the origin.
+Our main tool is the following so-called antigauge function
+  \begin{equation}\label{defg}
+    g(y) := \sup\left\{\alpha \ge 0:\; y = \alpha w \mbox{ for some }w\in \Cscr', \alpha \ge 0\right\},
+  \end{equation}
+  which was also used in  \cite{freund:1987} to relate the gauge duality theory to the duality theory of \cite{Gwinner:1985}.
+  The following lemma gives some simple properties of this function $g$, where we provide proofs for completeness.
+  \begin{lemma}\label{sec4:lem0}
+    The following properties hold for the function $g$:
+    \begin{enumerate}[{\rm (i)}]
+      \item ${\rm dom}(g) = {\rm cone}(\Cscr') = \bigcup_{\lambda\ge 0}\lambda \Cscr'\neq \emptyset$, on which $g$ is finite;
+      \item The supremum in the definition of $g(y)$ is attained for any $y\in {\rm dom}(g)$;
+      \item $y\in \Cscr'$ if and only if $g(y)\ge 1$;
+      \item $g$ is positively homogeneous;
+      \item $y\in \Cscr'$ implies that $\frac{1}{g(y)}y\in \Cscr'$.
+    \end{enumerate}
+  \end{lemma}
+  \begin{proof}
+    It is clear that if $y\notin {\rm cone}(\Cscr')$, then $g(y) = -\infty$. On the other hand, if $y\in {\rm cone}(\Cscr')$, then
+    for any fixed $c\in \Cscr$, we have $c^Ty \ge \alpha c^Tw\ge \alpha$ whenever $y = \alpha w$ for some $w\in \Cscr'$ and $\alpha\ge 0$.
+    This implies that $0\le g(y)\le c^Ty < \infty$, i.e., $y\in {\rm dom}(g)$ and $g(y)$ is finite.
+
+    To see that the supremum is attained, first notice that for any nonzero $y\in {\rm dom}(g)$, there exists $\underline{\alpha}> 0$
+    and $w\in \Cscr'$ so that $y = \underline{\alpha}w$. This shows that one can restrict attention to any maximizing sequence with $\inf\{\alpha_t\}\ge\underline{\alpha}$.
+    Then, along this maximizing sequence, there exists $w^t\in \Cscr'$ with $w^t = y/\alpha_t$. Since $\{\alpha_t\}$ is uniformly bounded
+    away from zero, the sequence $\{w^t\}$ is bounded and hence one
+    can obtain a convergent subsequence. The attainment of the supremum now follows from a standard argument. On the other hand, if $y=0$, the
+    supremum is clearly attained.
+
+    To prove {\rm (iii)}, we note first that $y\in \Cscr'$ clearly implies that $g(y)\ge 1$. On the other hand, if $g(y)\ge 1$,
+    then $y = g(y)w = w + (g(y)-1)w$ for some $w\in \Cscr'$. Since $\Cscr'$ is ray-like, we conclude that $y\in \Cscr'$.
+
+    Positive homogeneity follows directly from definition. Finally, if $y\in \Cscr'$, then $g(y)\ge 1> 0$ and so
+    $g(\frac{y}{g(y)})=1$ by positive homogeneity. The conclusion of {\rm (v)} now follows from {\rm (iii)}.
+  \end{proof}
+
+  The next lemma gives a relation between the positive polar of $\Cscr$ and its antipolar. {\color{red} Move this lemma to background.}
+
+  \begin{lemma}\label{sec4:lem1}
+    It holds that $\Cscr^* = {\rm cl}({\rm cone}(\Cscr'))$, where $\Cscr^*$ is the positive polar of $\Cscr$, i.e.,
+    $\Cscr^* = \{y:\; x^Ty \ge 0,\ \ \forall x\in \Cscr\}$.
+  \end{lemma}
+  \begin{proof}
+    It is clear that ${\rm cl}({\rm cone}(\Cscr'))\subseteq \Cscr^*$. To show the converse inclusion, take any $x\in \Cscr^*$ and fix an $x_0\in \Cscr'$.
+    Then for any $t > 0$, we have
+    \begin{equation*}
+      c^T(x + tx_0) \ge tc^Tx_0\ge t
+    \end{equation*}
+    for all $c\in \Cscr$, showing that $x + tx_0\in {\rm cone}(\Cscr')$. Taking limit as $t$ goes to $0$ shows that $x\in {\rm cl}({\rm cone}(\Cscr'))$,
+    which completes the proof.
+  \end{proof}
+
+  The next lemma gives an alternative representation of the function $g$. The case when $\Cscr$
+  is ray-like was discussed in \cite[Corollary~14B]{McLinden:1978}.
+
+  \begin{lemma}\label{sec4:lem2}
+    For any $y$, we have $\inf_{c\in \Cscr}c^Ty\ge g(y)$. Moreover,
+    \begin{equation}\label{sec4:eq}
+      \inf_{c\in \Cscr}c^Ty = \begin{cases}
+        g(y)& {\rm if\ }y\in {\rm dom}(g),\\
+        0& {\rm if\ }y\in {\rm cl}({\rm dom}(g))\backslash ({\rm dom}(g)).
+      \end{cases}
+    \end{equation}
+    If, in addition, $\Cscr$ is ray-like, then $\inf_{c\in \Cscr}c^Ty= g(y)$
+    for all $y\notin {\rm cl}({\rm dom}(g))\backslash ({\rm dom}(g))$.
+  \end{lemma}
+  \begin{proof}
+    For any $y\notin {\rm dom}(g)$, the inequality $\inf_{c\in \Cscr}c^Ty\ge g(y)$ holds trivially.
+    On the other hand, if $y\in {\rm dom}(g) = {\rm cone}(\Cscr')$, then
+    for any fixed $c\in \Cscr$, we have $c^Ty \ge \alpha c^Tw\ge \alpha$ whenever $y = \alpha w$ for some $\alpha \ge 0$ and $w\in \Cscr'$,
+    from which the inequality follows.
+
+    We now prove \eqref{sec4:eq}.
+    Suppose that $y\in {\rm cl}({\rm dom}(g))\backslash ({\rm dom}(g))$. It then follows from Lemma~\ref{sec4:lem1} that $\inf_{c\in \Cscr}c^Ty\ge 0$.
+    If $\inf_{c\in \Cscr}c^Ty\ge \lambda > 0$, then it follows from definition that $y\in \lambda \Cscr'\subseteq {\rm cone}(\Cscr') = {\rm dom}(g)$, a contradiction.
+    Hence, we must have $\inf_{c\in \Cscr}c^Ty=0$.
+
+    Suppose now that $y\in {\rm dom}(g)$. Then $g(y)\ge 0$. If $\lambda := \inf_{c\in \Cscr}c^Ty = 0$, then equality holds.
+    On the other hand, if $\lambda > 0$, then $c^T\frac{y}{\lambda}\ge 1$ for all $c\in \Cscr$, meaning that $\frac{y}{\lambda}\in \Cscr'$.
+    Using properties {\rm (iii)} and {\rm (iv)} of $g$ in Lemma~\ref{sec4:lem0}, we conclude that $g(y)\ge \lambda$. Thus, $\inf_{c\in \Cscr}c^Ty= g(y)$.
+
+    Finally, suppose in additional that $\Cscr$ is ray-like.
+    We only need to consider the case when $y\notin {\rm cl}({\rm dom}(g))$ so that $g(y)=-\infty$. Suppose to the contrary that
+    $\inf_{c\in \Cscr}c^Ty\ge 0$.
+    Then $y\in \Cscr^*={\rm cl}({\rm cone}(\Cscr'))$, which is a contradiction. Thus, $c^Ty<0$ for some $c\in \Cscr$. Since
+    the set $\Cscr$ is ray-like, we immediately have $\inf_{c\in \Cscr}c^Ty = -\infty$. Hence, equality also holds in this case.
+  \end{proof}
+
+  Now, we are ready to study gauge duality. Let $\kappa$ be a proper closed convex gauge function, i.e., the Minkowski functional of
+  a closed convex set containing $0$. Recall that the polar of $\kappa$ is defined as
+  \[
+  \kappa^\circ(y) := \sup_{\kappa(x)\le 1}x^Ty.
+  \]
+  This function is a proper closed convex gauge function; see \cite[Theorem~15.1]{Roc70}.
+  We denote the optimal value of \eqref{eq:1} by $v_{p}$ and that of \eqref{eq:2dual} by $v_{gd}$
+  Moreover, recall that the Fenchel dual problem to \eqref{eq:1} is given by
+  \begin{equation}
+    \label{sec4:eq1}
+    \maximize{x} \quad -\sigma_{\Cscr}(-y) \textt{subject to} \kappa^\circ(y)\le 1,
+  \end{equation}
+  whose optimal value is denoted by $v_{fd}$. Then we have the following result relating these values.
+  \begin{theorem}\label{sec4:thm1}
+  Suppose that ${\rm dom}(\kappa^\circ)\cap \Cscr'\neq \emptyset$.
+  Then it holds that
+  \[
+  v_p\ge v_{fd} = \frac{1}{v_{gd}} > 0.
+  \]
+  Furthermore, if $y^*$ solves \eqref{sec4:eq1}, then $y^*\in {\rm cone}(\Cscr')$
+  and $\frac{1}{g(y^*)}y^*$ solves \eqref{eq2:dual}. Finally, if $w^*$ solves \eqref{eq2:dual}, then $\frac{1}{v_{gd}} w^*$ solves \eqref{sec4:eq1}.
+%    Consider the problems
+%    \begin{equation}\label{primal}
+%      \begin{array}{rl}
+%        v^* := \displaystyle\min_x & f(x)\\
+%               {\rm s.t.} & x\in C,
+%      \end{array}
+%    \end{equation}
+%    and
+%    \begin{equation}\label{dual}
+%      \begin{array}{rl}
+%        w^* := \displaystyle\min_y & f^\circ(y)\\
+%               {\rm s.t.} & y\in C'.
+%      \end{array}
+%    \end{equation}
+%    . Then $v^*\ge {w^*}^{-1}$ and $w^*$ is finite (could be zero).
+%    If in addition we have ${\rm ri}({\rm dom}(f))\cap {\rm ri}(C)\neq \emptyset$ and $C$ is ray-like, then $v^* = {w^*}^{-1}$
+%    and $w^*$ is attained.
+  \end{theorem}
+  \begin{proof}
+    The fact that $v_p\ge v_{fd}$ follows from standard Fenchel duality theory. We now show that $v_{fd} = \frac{1}{v_{gd}}$.
+
+    To this end, note that
+    \begin{equation}\label{sec4:ineq2}
+    -\sigma_\Cscr(-y) = -\sup_{c\in \Cscr} c^T(-y) = \inf_{c\in \Cscr}c^Ty.
+    \end{equation}
+    Since ${\rm dom}(\kappa^\circ)\cap \Cscr'\neq \emptyset$, there exists $y_0$ so that $\kappa^\circ(y_0)\le 1$
+    and $y_0\in t\Cscr'$ for some $t>0$. Hence, in particular, we have
+    \begin{equation}\label{sec4:eq3}
+    v_{fd}\ge \inf_{c\in \Cscr}c^Ty_0 \ge t > 0.
+    \end{equation}
+    Moreover, using \eqref{sec4:ineq2} and the definition of $v_{fd}$, we have
+    \begin{equation*}
+      \begin{split}
+        v_{fd} &= \sup\{-\sigma_{\Cscr}(-y):\; \kappa^\circ(y)\le 1\} = \sup\{g(y):\; \kappa^\circ(y)\le 1\},
+      \end{split}
+    \end{equation*}
+    where the equality holds because of Lemma~\ref{sec4:lem2}, the observation that $-\sup_{c\in \Cscr} c^T(-y) = \inf_{c\in \Cscr}c^Ty$ is negative for any $y\notin {\rm cl}({\rm dom}(g)) = {\rm cl}({\rm cone}(\Cscr')) = \Cscr^*$, and the positivity of $v_{fd}$ from \eqref{sec4:eq3}.
+
+    Then, we have further that
+    \begin{equation}\label{sec4:vineq}
+      \begin{split}
+        v_{fd}
+        & = \sup_y\{g(y):\; \kappa^\circ(y)\le 1, y \in {\rm cone}(\Cscr')\}\\
+        & = \sup_y\{g(y):\; \kappa^\circ(y)\le 1, y \in {\rm cone}(\Cscr')\backslash\{0\}\},\\
+      \end{split}
+    \end{equation}
+    where the first equality follows from Lemma~\ref{sec4:lem0}{\rm (i)}, and the second equality follows from
+    the assumption that ${\rm dom}(\kappa^\circ)\cap \Cscr'\neq \emptyset$.
+
+    Now, observe that
+    \begin{equation}\label{sec4:rel1}
+    \begin{split}
+     &\sup_y\{g(y):\; \kappa^\circ(y)\le 1, y \in {\rm cone}(\Cscr')\backslash\{0\}\}\\
+     = & \sup_y\{g(y):\; \kappa^\circ\left(\frac{y}{g(y)}\right)\le \frac{1}{g(y)}, y \in {\rm cone}(\Cscr')\backslash\{0\}\}\\
+     \le & \sup_{\lambda,u} \left\{\lambda:\; \kappa^\circ(u)\le \frac{1}{\lambda} ,\lambda > 0, u\in \Cscr'\right\},
+    \end{split}
+    \end{equation}
+    where the equality follows from Lemma~\ref{sec4:lem0}{\rm (iii)} so that $g(y) > 0$ on the feasible set, and
+    the inequality follows from Lemma~\ref{sec4:lem0}{\rm (v)}. On the other hand, we also have
+    \begin{equation}\label{sec4:rel2}
+    \begin{split}
+    \sup_{\lambda,u} \left\{\lambda:\; \kappa^\circ(u)\le \frac{1}{\lambda} ,\lambda > 0, u\in \Cscr'\right\}
+    &\le  \sup_{\lambda,u} \left\{\lambda:\; \kappa^\circ(u)\le \frac{g(u)}{\lambda} ,\frac{\lambda}{g(u)} > 0, u\in \Cscr'\right\}\\
+    &= \sup_{\alpha,u}\left\{\alpha g(u):\; \alpha \kappa^\circ(u)\le 1, \alpha > 0, u\in \Cscr'\right\}\\
+    &= \sup_y\{g(y):\; \kappa^\circ(y)\le 1, y \in {\rm cone}(\Cscr')\backslash\{0\}\},
+    \end{split}
+    \end{equation}
+    where the inequality follows from Lemma~\ref{sec4:lem0}{\rm (iii)}, and the first equality follows from
+    the substitution $\alpha = \frac{\lambda}{g(u)}$. In particular, equality holds throughout \eqref{sec4:rel1} and \eqref{sec4:rel2}.
+    Combining these with \eqref{sec4:vineq}, we conclude that
+    \[
+    v_{fd} = \sup_{\lambda,u} \left\{\lambda:\; \kappa^\circ(u)\le \frac{1}{\lambda} ,\lambda > 0, u\in \Cscr'\right\} = \frac{1}{v_{gd}}.
+    \]
+
+    Finally, assume that $y^*$ solves \eqref{sec4:eq1}. Then we see immediately from \eqref{sec4:rel1} that $y^*\in {\rm cone}(C')$
+    and $\frac{1}{g(y^*)}y^*$ solves \eqref{eq2:dual}. On the other hand, if $w^*$ solves \eqref{eq2:dual}, one can observe from \eqref{sec4:rel2}
+    that $\frac{1}{v_{gd}} w^*$ solves \eqref{sec4:eq1}. This completes the proof.
+
+
+%    Finally, assume that the constraint qualification ${\rm ri}({\rm dom}(f))\cap {\rm ri}(C)\neq \emptyset$ holds and
+%    that $C$ is ray-like. The constraint qualification asserts that equality holds in \eqref{ineq} and also $v^*$ is finite.
+%    Since $v^*\ge {w^*}^{-1}$, it must hold that $v^* > 0$.
+%    On the other hand, since $C$ is ray-like, we see from Lemma~\ref{sec4:lem2} that the domain of the function $\inf_{c\in C}c^Ty$ is contained
+%    in ${\rm cl}({\rm dom}(g))$. Hence, we have
+%    \[
+%    \begin{split}
+%      0<v^* = \sup_y\left\{\inf_{c\in C}c^Ty:\; f^\circ(y)\le 1\right\}
+%      &= \sup_y\left\{\inf_{c\in C}c^Ty:\; f^\circ(y)\le 1, y\in {\rm cl}({\rm dom}(g)) \right\}\\
+%      &= \sup_y\left\{\inf_{c\in C}c^Ty:\; f^\circ(y)\le 1, y\in {\rm cl}({\rm cone}(C')) \right\}\\
+%      &= \sup_y\left\{\inf_{c\in C}c^Ty:\; f^\circ(y)\le 1, y\in {\rm cone}(C') \right\}\\
+%      &= \sup_y\left\{g(y):\; f^\circ(y)\le 1, y\in {\rm cone}(C') \right\},
+%    \end{split}
+%    \]
+%    where the third equality follows from Lemma~\ref{sec4:lem2}, which states
+%    that $\inf_{c\in C}c^Ty = 0$ for any $y\in {\rm cl}({\rm dom}(g))\backslash ({\rm dom}(g))$.
+%    Hence, equality also holds throughout \eqref{vineq}. The attainment of $w^*$
+%    is just the dual attainment result in Fenchel duality.
+  \end{proof}
+
+  From the well studied Fenchel duality theory, we have the following immediate corollary. {\color{red} Can write down more conditions, e.g. polyhedral, blablabla...}
+  \begin{corollary}
+    Suppose that ${\rm dom}(\kappa^\circ)\cap \Cscr'\neq \emptyset$ and ${\rm ri}({\rm dom}(\kappa))\cap {\rm ri}(\Cscr)\neq \emptyset$.
+    Then $v_pv_{gd}=1$ and the gauge dual problem \eqref{eq:2dual} is attained.
+  \end{corollary}
+  \begin{proof}
+    From ${\rm ri}({\rm dom}(\kappa))\cap {\rm ri}(\Cscr)\neq \emptyset$ and \cite[Theorem~31.1]{Roc70}, we see that $v_p = v_{fd}$ and $v_{fd}$
+    is attained. The conclusion of the corollary now follows immediately from Theorem~\ref{sec4:thm1}.
+  \end{proof}
+
+  We would also like to guarantee {\em primal attainment}. Notice that the gauge dual of the gauge dual problem \eqref{eq:2dual} is given by
+  \begin{equation}
+    \label{sec4:eq4}
+    \minimize{x} \quad \kappa(x) \textt{subject to} x\in\Cscr'',
+  \end{equation}
+  which is not the same as \eqref{eq:1} unless $\Cscr$ is ray-like.
+  However, we show in the next proposition that \eqref{sec4:eq4} and \eqref{eq:1} always have
+  the same optimal value, and that if the optimal value is attained in one problem, so is in the other one.
+
+  \begin{proposition}\label{sec4:prop1}
+    The optimal value of \eqref{eq:1} and \eqref{sec4:eq4} are the same. Moreover, if
+    the optimal value is attained in one problem, so is in the other one.
+  \end{proposition}
+  \begin{proof}
+    It is not hard to show that $\Cscr'' = \bigcup_{\lambda \ge 1}\lambda \Cscr$ for a closed convex set $\Cscr$ that does not contain the origin;
+    see also \cite[Page~176]{McLinden:1978}. Thus,
+    \eqref{sec4:eq4} with $\Cscr''$ in place of $\Cscr$ is equivalent to
+    \begin{equation}\label{sec4:primal2}
+      \minimize{\lambda,x} \quad \lambda\kappa(x) \textt{subject to} x\in\Cscr,\ \lambda\ge 1,
+    \end{equation}
+    which clearly gives the same optimal value as \eqref{eq:1}. This proves the first conclusion.
+    The second conclusion now also follows immediately.
+  \end{proof}
+
+  Hence, we obtain the following corollary, which generalizes \cite[Theorem~2A]{freund:1987} by dropping the ray-likeness assumption
+  on $\Cscr$.
+  \begin{corollary}
+    Suppose that ${\rm ri}({\rm dom}\kappa)\cap {\rm ri}(\Cscr)\neq \emptyset$ and ${\rm ri}({\rm dom}\kappa^\circ)\cap {\rm ri}(\Cscr')\neq \emptyset$.
+    Then $v_pv_{gd}=1$ and both values are attained.
+  \end{corollary}
+  \begin{proof}
+    The conclusion follows from Theorem~\ref{sec4:thm1}, Proposition~\ref{sec4:prop1}
+    and the observation that ${\rm ri}({\rm dom}(\kappa))\cap {\rm ri}(\Cscr)\neq \emptyset$
+    if and only if ${\rm ri}({\rm dom}(\kappa))\cap {\rm ri}(\Cscr'')\neq \emptyset$, since
+    ${\rm ri}(\Cscr'') = \bigcup_{\lambda > 1}\lambda {\rm ri}(\Cscr)$ (see \cite[Page~50]{Roc70})
+    and ${\rm dom}(\kappa)$ is a cone.
+  \end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   \subsection{Examples}
   \begin{itemize}
@@ -196,9 +639,9 @@
   \begin{itemize}
   \item A generic algorithm for gauge duals?
   \end{itemize}
-  
 
-  
+
+
 
   \section{Conclusion}
 
