@@ -156,6 +156,7 @@
   language =     {English}
 }
 
+
 @article{Chan:2012,
   year =         2012,
   issn =         {1615-3375},
@@ -170,7 +171,7 @@
                   Atomic norms; Real algebraic geometry; Gaussian
                   width; Symmetry; 52A41; 90C25; 90C22; 60D05; 41A45},
   author =       {Chandrasekaran, Venkat and Recht, Benjamin and
-                  Parrilo, Pablo A. and Willsky, Alan S.},
+                  Parrilo, PabloA. and Willsky, AlanS.},
   pages =        {805-849},
   language =     {English}
 }
@@ -423,16 +424,6 @@
   Title =        {Gradient methods for constrained maxima, with
                   weakened assumptions},
   Year =         1958
-}
-
-@book{AuT03,
-  Address =      {New York},
-  Author =       {A. Auslender and M. Teboulle},
-  Date-Modified ={2013-09-20},
-  Publisher =    springer,
-  Series =       {Springer Monographs in Mathematics},
-  Title =        {Asymptotic Cones and Functions in Optimization and Variational Inequalities},
-  Year =         2003
 }
 
 @Article{AuT05,
@@ -895,16 +886,6 @@
   Year =         2004
 }
 
-@book{Berman:1973,
-  title =        {Cones, Matrices and Mathematical Programming},
-  author =       {A. Berman},
-  Series =       {Lecture Notes in Economics and Mathematical Systems},
-  volume =    {79},
-  year =         1973,
-  publisher =    springer
-}
-
-
 @book{BermShak:2003,
   title =        {Completely positive matrices},
   author =       {A. Bermanand and N. Shaked-Monderer},
@@ -1262,12 +1243,12 @@
 
 @article{Buck85,
   author =       {A. Buckley and A. {LeNir}},
-  title =        {{BBVSCG}?�a variable storage algorithm for function
+  title =        {{BBVSCG}—a variable storage algorithm for function
                   minimization},
   journal =      acmmathsoft,
   number =       11,
   year =         1985,
-  pages =        {103??119}
+  pages =        {103–-119}
 }
 
 @article{Rockafellar:1993,
@@ -1323,7 +1304,7 @@
   journal =      MathProg,
   number =       27,
   year =         1983,
-  pages =        {155-??75}
+  pages =        {155-–175}
 }
 
 @article {BurerMont:2003,
@@ -2473,7 +2454,7 @@
 
 @article {DaubDevoFornSina:2009,
   author =       {Daubechies, Ingrid and DeVore, Ronald and Fornasier,
-                  Massimo and Güntürk, C. Si?nan},
+                  Massimo and Güntürk, C. Si̇nan},
   title =        {Iteratively reweighted least squares minimization
                   for sparse recovery},
   journal =      {Communications on Pure and Applied Mathematics},
@@ -2486,38 +2467,38 @@
   pages =        {1--38},
   year =         2010,
   abstract =     {Abstract Under certain conditions (known as the
-                  restricted isometry property, or RIP) on the m ? N
-                  matrix Φ (where m < N), vectors x ???�N that are
+                  restricted isometry property, or RIP) on the m × N
+                  matrix Φ (where m < N), vectors x ∈ ℝN that are
                   sparse (i.e., have most of their entries equal to 0)
                   can be recovered exactly from y := Φx even though
-                  Φ??(y) is typically an (N ??m)?�dimensional
+                  Φ−1(y) is typically an (N − m)—dimensional
                   hyperplane; in addition, x is then equal to the
-                  element in Φ??(y) of minimal ??1-norm. This minimal
+                  element in Φ−1(y) of minimal 𝓁1-norm. This minimal
                   element can be identified via linear programming
                   algorithms. We study an alternative method of
                   determining x, as the limit of an iteratively
                   reweighted least squares (IRLS) algorithm. The main
                   step of this IRLS finds, for a given weight vector
-                  w, the element in Φ??(y) with smallest
-                  ??2(w)-norm. If x(n) is the solution at iteration
+                  w, the element in Φ−1(y) with smallest
+                  𝓁2(w)-norm. If x(n) is the solution at iteration
                   step n, then the new weight w(n) is defined by
-                  w?�i(n) := [|x?�i(n)|2 + ε?�n2]??/2, i = 1, ?? N, for a
+                  w i(n) := [|x i(n)|2 + ε n2]−1/2, i = 1, …, N, for a
                   decreasing sequence of adaptively defined εn; this
                   updated weight is then used to obtain x(n + 1) and
                   the process is repeated. We prove that when Φ
                   satisfies the RIP conditions, the sequence x(n)
-                  converges for all y, regardless of whether Φ??(y)
+                  converges for all y, regardless of whether Φ−1(y)
                   contains a sparse vector. If there is a sparse
-                  vector in Φ??(y), then the limit is this sparse
+                  vector in Φ−1(y), then the limit is this sparse
                   vector, and when x(n) is sufficiently close to the
                   limit, the remaining steps of the algorithm converge
                   exponentially fast (linear convergence in the
                   terminology of numerical optimization). The same
-                  algorithm with the ?�heavier??weight w?�i(n) =
-                  [|x?�i(n)|2 + ε?�n2]??+?/2, i = 1, ?? N, where 0 < ? <
+                  algorithm with the “heavier” weight w i(n) =
+                  [|x i(n)|2 + ε n2]−1+τ/2, i = 1, …, N, where 0 < τ <
                   1, can recover sparse solutions as well; more
                   importantly, we show its local convergence is
-                  superlinear and approaches a quadratic rate for ?
+                  superlinear and approaches a quadratic rate for τ
                   approaching 0. © 2009 Wiley Periodicals, Inc.},
 }
 
@@ -3651,7 +3632,7 @@
   journal =      {IMA Journal of Numerical Analysis},
   year =         2008,
   volume =       28,
-  pages =        {749??69},
+  pages =        {749−769},
   doi =          {10.1093/imanum/drn003},
   title =        {Flexible penalty functions for nonlinear constrained
                   optimization},
@@ -4731,15 +4712,6 @@
   editor =       {A. H. Siddiqi and M. Kocvara},
 }
 
-@Article{Gwinner:1985,
-  author =       "J. Gwinner",
-  title =        "An extension lemma and homogeneous programming",
-  journal =      "Journal of Optimization Theory and Applications",
-  year =         1985,
-  volume =       47,
-  pages =         {321--336},
-}
-
 @incollection{PilloGrippo:1984,
   author =       {G. Di Pillo and L. Grippo},
   title =        {A class of continuously differentiable exact penalty
@@ -4750,7 +4722,7 @@
   publisher =    {Springer-Verlag},
   address =      {Berlin},
   year =         1984,
-  pages =        {246??56}
+  pages =        {246–256}
 }
 @InCollection{Fletcher:1973,
   author =       {R. Fletcher},
@@ -5034,7 +5006,7 @@
   volume =       28,
   number =       2,
   year =         2010,
-  pages =        {170??94},
+  pages =        {170–194},
   doi =          {doi:10.4208/jcm.2009.10-m1007},
   title =        {Fixed-point continuation applied to compressed
                   sensing: implementation and numerical experiments}
@@ -5663,7 +5635,7 @@
 @article {LST:2011,
   author =       {Liu, Yong-Jin and Sun, Defeng and Toh, Kim-Chuan},
   affiliation =  {Faculty of Science, Shenyang Aerospace University,
-                  110136 Shenyang, People?�s Republic of China},
+                  110136 Shenyang, People’s Republic of China},
   title =        {An implementable proximal point algorithmic
                   framework for nuclear norm minimization},
   journal =      {Mathematical Programming},
@@ -6511,15 +6483,6 @@
   Title =        {Interpretation of Mass Spectra},
   Edition =      {Fourth},
   Year =         1993
-}
-
-@Article{McLinden:1978,
-  author =       "L. McLinden",
-  title =        "Symmetric duality for structured convex programs",
-  journal =      "Transactions of the American Mathematical Society",
-  year =         1978,
-  volume =       245,
-  pages =         {147--181},
 }
 
 @article{MendPajoTomc:2007,
@@ -8081,7 +8044,7 @@
   abstract =     {Many inverse problems include nuisance parameters
                   which, while not of direct interest, are required to
                   recover primary parameters. The structure of these
-                  problems allows efficient optimization strategies?�a
+                  problems allows efficient optimization strategies—a
                   well-known example is variable projection , where
                   nonlinear least-squares problems which are linear in
                   some parameters can be very efficiently
@@ -8347,7 +8310,7 @@
   journal =      {J. Royal Statistical Society: Series B (Statistical
                   Methodology)},
   number =       67,
-  pagges =       {91??08},
+  pagges =       {91–108},
   doi =          {10.1111/j.1467-9868.2005.00490.x}
 }
 
@@ -8850,7 +8813,7 @@
   journal =      numermath,
   volume =       38,
   number =       1,
-  pages =        {83??14},
+  pages =        {83–114},
   year =         {1981/82}
 }
 
@@ -9395,8 +9358,8 @@
                   problems demonstrate that this algorithm is much
                   faster and provides much better recoverability than
                   semidefinite programming solvers such as SDPT3. For
-                  example, our algorithm can recover 1000 ? 1000
-                  matrices of rank 50 with a relative error of 10 ??
+                  example, our algorithm can recover 1000 × 1000
+                  matrices of rank 50 with a relative error of 10 −5
                   in about 3 min by sampling only 20\% of the
                   elements. We know of no other method that achieves
                   as good recoverability. Numerical experiments on
@@ -9409,7 +9372,7 @@
 @article {springerlink:10.1007/s10107-010-0437-8,
   author =       {Liu, Yong-Jin and Sun, Defeng and Toh, Kim-Chuan},
   affiliation =  {Faculty of Science, Shenyang Aerospace University,
-                  110136 Shenyang, People?�s Republic of China},
+                  110136 Shenyang, People’s Republic of China},
   title =        {An implementable proximal point algorithmic
                   framework for nuclear norm minimization},
   journal =      {Mathematical Programming},
@@ -9496,7 +9459,7 @@
   url =          {http://dx.doi.org/10.1007/s10957-013-0323-7},
   publisher =    {Springer US},
   keywords =     {Linear programming; Linear optimization; Constraint
-                  reduction; Primal?�dual interior point;
+                  reduction; Primal–dual interior point;
                   Regularization},
   author =       {Winternitz, LukeB. and Tits, AndréL. and Absil,
                   P.-A.},
